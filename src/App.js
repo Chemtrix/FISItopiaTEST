@@ -5,6 +5,7 @@ import Quiz from './pages/Quiz';
 import FillIn from './pages/FillIn';
 import Vocab from './pages/Vocab';
 import DragDrop from './pages/DragDrop';
+import Cmd from './pages/Cmd';
 
 
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/fillin" element={<FillIn />} />
           <Route path="/vocab" element={<Vocab />} />
           <Route path="/dragdrop" element={<DragDrop />} />
+          <Route path="/cmd" element={<Cmd />} />
         </Routes>
       </div>
     </Router>
