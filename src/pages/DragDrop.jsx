@@ -19,7 +19,7 @@ function DragDrop() {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <div className="bg-white/10 backdrop-blur-lg border border-white/10 p-8 rounded-2xl shadow-xl max-w-lg w-full">
-        <h1 className="text-2xl sm:text-3xl font-bold text-yellow-300 mb-4">🚧 Kommt bald!</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold text-yellow-300 mb-4">🚧 Kommt sehr bald!</h1>
         <p className="text-white/90 text-base sm:text-lg">
           Der Bereich <span className="text-blue-400 font-semibold">„Drag & Drop Aufgaben“</span> befindet sich aktuell noch in der Entwicklung.
         </p>
