@@ -83,7 +83,7 @@ function Home() {
             <Link to="/vocab"><CircleButton icon={<FaBook />} label="Vokabeln" /></Link>
             <Link to="/dragdrop"><CircleButton icon={<FaPuzzlePiece />} label="Drag & Drop" /></Link>
             <Link to="/cmd"><CircleButton icon={<FaTerminal />} label="CMD" /></Link>
-            <CircleButton icon={<FaStickyNote />} label="Notizen" />
+            <Link to="/notes"><CircleButton icon={<FaStickyNote />} label="Notizen" /></Link>
           </div>
         ) : (
           <div className="absolute inset-0 z-20">
@@ -92,7 +92,10 @@ function Home() {
             <Link to="/vocab"><AnimatedRay angle={120} icon={<FaBook />} label="Vokabeln lernen" show={showButtons} delay={0.2} /></Link>
             <Link to="/dragdrop"><AnimatedRay angle={180} icon={<FaPuzzlePiece />} label="Drag & Drop Aufgaben" show={showButtons} delay={0.3} /></Link>
             <Link to="/cmd"><AnimatedRay angle={240} icon={<FaTerminal />} label="CMD & Befehle testen" show={showButtons} delay={0.4} /></Link>
-            <AnimatedRay angle={300} icon={<FaStickyNote />} label="Notizen & Spickzettel" show={showButtons} delay={0.5} />
+            <Link to="/notes">
+  <AnimatedRay angle={300} icon={<FaStickyNote />} label="Notizen & Spickzettel" show={showButtons} delay={0.5} />
+</Link>
+                                                                                                                                              
           </div>
         )}
       </div>
