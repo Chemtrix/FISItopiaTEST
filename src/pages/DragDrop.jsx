@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import backgroundImage from '../assets/IT-BG.png';
 
+console.log("✅ DragDrop Component geladen!");
+
 function DragDrop() {
   const navigate = useNavigate();
 
