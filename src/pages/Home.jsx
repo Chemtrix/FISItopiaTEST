@@ -19,14 +19,7 @@ const itFacts = [
   { tip: "🧠 OSI-Schicht 3 ist die Vermittlungsschicht – dort passiert Routing!", explanation: "Zuständig für IP-Adressierung & Routing." },
   { tip: "⚙️ CMD-Befehl 'tasklist' zeigt alle laufenden Prozesse an.", explanation: "Praktisch zur Analyse laufender Programme." },
   { tip: "📡 Eine MAC-Adresse ist die eindeutige Hardwarekennung deiner Netzwerkkarte.", explanation: "Dient zur Geräte-Identifikation im Netzwerk." },
-  { tip: "🗂️ Mit 'cd ..' wechselst du im Terminal eine Ebene nach oben.", explanation: "Navigiere durch Ordner im Dateisystem." },
-  { tip: "📥 'wget' ist ein praktischer Download-Befehl unter Linux.", explanation: "Lädt Dateien direkt aus dem Internet herunter." },
-  { tip: "🌐 DNS übersetzt Domainnamen in IP-Adressen – z.B. google.de → 142.250.185.35", explanation: "Wie ein Telefonbuch für Webseiten." },
-  { tip: "🔌 Ein Router verbindet zwei Netzwerke miteinander – meist lokales Netz & Internet.", explanation: "Verbindet dein Zuhause mit dem Internet." },
-  { tip: "🧰 Ein Proxy leitet Anfragen weiter und kann Zugriff filtern oder protokollieren.", explanation: "Erhöht Privatsphäre oder kontrolliert Zugriff." },
-  { tip: "💾 SSDs sind schneller & leiser als HDDs, aber meist teurer pro GB.", explanation: "Verkürzen Ladezeiten & booten flott." },
   { tip: "🧱 Firewalls schützen Netzwerke vor unautorisierten Zugriffen.", explanation: "Blockieren gefährliche Verbindungen." },
-  { tip: "🔐 HTTPS = HTTP + SSL/TLS für verschlüsselte Webseitenkommunikation.", explanation: "Schützt deine Daten im Browser." },
   { tip: "🧠 RAM ist der Arbeitsspeicher – kurzfristiger Speicher fürs Betriebssystem.", explanation: "Speichert laufende Prozesse & Programme." }
 ];
 
@@ -42,6 +35,7 @@ function Home() {
   const [showButtons, setShowButtons] = useState(false);
   const [factIndex, setFactIndex] = useState(Math.floor(Math.random() * itFacts.length));
   const [fade, setFade] = useState(true);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
 
   const animateFactChange = () => {
     setFade(false);
@@ -53,16 +47,17 @@ function Home() {
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowButtons(true);
-    }, 400);
-    return () => clearTimeout(timer);
+    const timer = setTimeout(() => setShowButtons(true), 400);
+    const handleResize = () => setIsMobile(window.innerWidth < 500);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   useEffect(() => {
-    const autoChange = setInterval(() => {
-      animateFactChange();
-    }, 12000);
+    const autoChange = setInterval(() => animateFactChange(), 12000);
     return () => clearInterval(autoChange);
   }, [factIndex]);
 
@@ -71,7 +66,7 @@ function Home() {
       className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center p-4"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      <div className="relative w-full max-w-[600px] aspect-square flex items-center justify-center">
+      <div className="relative w-full max-w-[600px] aspect-square flex items-center justify-center flex-col">
         <div className="w-56 sm:w-64 md:w-80 h-56 sm:h-64 md:h-80 rounded-full bg-white/10 backdrop-blur text-white flex flex-col items-center justify-center text-center font-extrabold shadow-xl z-10">
           <div className="text-3xl sm:text-4xl md:text-5xl tracking-tight leading-tight font-mono">
             FISI<span className="text-blue-400">Topia</span>
@@ -81,22 +76,33 @@ function Home() {
           </div>
         </div>
 
-        <div className="absolute inset-0 z-0">
-          <Link to="/quiz">
-            <AnimatedRay angle={0} icon={<FaQuestionCircle />} label="Quiz starten" show={showButtons} delay={0} />
-          </Link>
-          <Link to="/fillin">
-            <AnimatedRay angle={60} icon={<FaKeyboard />} label="Lückentext üben" show={showButtons} delay={0.1} />
-          </Link>
-          <Link to="/vocab">
-            <AnimatedRay angle={120} icon={<FaBook />} label="Vokabeln lernen" show={showButtons} delay={0.2} />
-          </Link>
-          <Link to="/dragdrop">
-            <AnimatedRay angle={180} icon={<FaPuzzlePiece />} label="Drag & Drop Aufgaben" show={showButtons} delay={0.3} />
-          </Link>
-          <AnimatedRay angle={240} icon={<FaTerminal />} label="CMD & Befehle testen" show={showButtons} delay={0.4} />
-          <AnimatedRay angle={300} icon={<FaStickyNote />} label="Notizen & Spickzettel" show={showButtons} delay={0.5} />
-        </div>
+        {isMobile ? (
+          <div className="mt-6 grid grid-cols-2 gap-4 px-6 z-30">
+            <Link to="/quiz"><CircleButton icon={<FaQuestionCircle />} label="Quiz" /></Link>
+            <Link to="/fillin"><CircleButton icon={<FaKeyboard />} label="Lückentext" /></Link>
+            <Link to="/vocab"><CircleButton icon={<FaBook />} label="Vokabeln" /></Link>
+            <Link to="/dragdrop"><CircleButton icon={<FaPuzzlePiece />} label="Drag & Drop" /></Link>
+            <CircleButton icon={<FaTerminal />} label="CMD" />
+            <CircleButton icon={<FaStickyNote />} label="Notizen" />
+          </div>
+        ) : (
+          <div className="absolute inset-0 z-20">
+            <Link to="/quiz">
+              <AnimatedRay angle={0} icon={<FaQuestionCircle />} label="Quiz starten" show={showButtons} delay={0} />
+            </Link>
+            <Link to="/fillin">
+              <AnimatedRay angle={60} icon={<FaKeyboard />} label="Lückentext üben" show={showButtons} delay={0.1} />
+            </Link>
+            <Link to="/vocab">
+              <AnimatedRay angle={120} icon={<FaBook />} label="Vokabeln lernen" show={showButtons} delay={0.2} />
+            </Link>
+            <Link to="/dragdrop">
+              <AnimatedRay angle={180} icon={<FaPuzzlePiece />} label="Drag & Drop Aufgaben" show={showButtons} delay={0.3} />
+            </Link>
+            <AnimatedRay angle={240} icon={<FaTerminal />} label="CMD & Befehle testen" show={showButtons} delay={0.4} />
+            <AnimatedRay angle={300} icon={<FaStickyNote />} label="Notizen & Spickzettel" show={showButtons} delay={0.5} />
+          </div>
+        )}
       </div>
 
       <div className="mt-12 px-10 py-6 bg-white/10 backdrop-blur rounded-xl text-white text-center text-sm sm:text-base max-w-lg border border-white/20 shadow-md relative">
@@ -107,7 +113,6 @@ function Home() {
             <span className="text-white/70 text-xs italic">{itFacts[factIndex].explanation}</span>
           </p>
         </div>
-
         <div className="absolute inset-y-0 left-0 flex items-center px-2">
           <button onClick={animateFactChange} className="text-white/50 hover:text-white transition text-xl">
             <FaChevronLeft />
@@ -136,9 +141,7 @@ function AnimatedRay({ angle, icon, label, show, delay = 0 }) {
   };
 
   useEffect(() => {
-    const updateDistance = () => {
-      setDistance(getResponsiveDistance());
-    };
+    const updateDistance = () => setDistance(getResponsiveDistance());
     updateDistance();
     window.addEventListener('resize', updateDistance);
     return () => window.removeEventListener('resize', updateDistance);
@@ -167,8 +170,8 @@ function AnimatedRay({ angle, icon, label, show, delay = 0 }) {
 
 function CircleButton({ icon, label }) {
   return (
-    <button className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 bg-white/10 backdrop-blur rounded-full flex flex-col items-center justify-center text-white hover:bg-white/20 shadow-md transition text-center p-3 text-base sm:text-lg">
-      <div className="text-2xl sm:text-3xl md:text-4xl mb-1">{icon}</div>
+    <button className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 bg-white/10 backdrop-blur rounded-full flex flex-col items-center justify-center text-white hover:bg-white/20 shadow-md transition text-center p-2 text-sm sm:text-base">
+      <div className="text-xl sm:text-2xl md:text-3xl mb-1">{icon}</div>
       <span>{label}</span>
     </button>
   );
