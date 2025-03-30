@@ -87,21 +87,11 @@ function Home() {
           </div>
         ) : (
           <div className="absolute inset-0 z-20">
-            <Link to="/quiz">
-              <AnimatedRay angle={0} icon={<FaQuestionCircle />} label="Quiz starten" show={showButtons} delay={0} />
-            </Link>
-            <Link to="/fillin">
-              <AnimatedRay angle={60} icon={<FaKeyboard />} label="Lückentext üben" show={showButtons} delay={0.1} />
-            </Link>
-            <Link to="/vocab">
-              <AnimatedRay angle={120} icon={<FaBook />} label="Vokabeln lernen" show={showButtons} delay={0.2} />
-            </Link>
-            <Link to="/dragdrop">
-              <AnimatedRay angle={180} icon={<FaPuzzlePiece />} label="Drag & Drop Aufgaben" show={showButtons} delay={0.3} />
-            </Link>
-            <Link to="/cmd">
-              <AnimatedRay angle={240} icon={<FaTerminal />} label="CMD & Befehle testen" show={showButtons} delay={0.4} />
-            </Link>
+            <Link to="/quiz"><AnimatedRay angle={0} icon={<FaQuestionCircle />} label="Quiz starten" show={showButtons} delay={0} /></Link>
+            <Link to="/fillin"><AnimatedRay angle={60} icon={<FaKeyboard />} label="Lückentext üben" show={showButtons} delay={0.1} /></Link>
+            <Link to="/vocab"><AnimatedRay angle={120} icon={<FaBook />} label="Vokabeln lernen" show={showButtons} delay={0.2} /></Link>
+            <Link to="/dragdrop"><AnimatedRay angle={180} icon={<FaPuzzlePiece />} label="Drag & Drop Aufgaben" show={showButtons} delay={0.3} /></Link>
+            <Link to="/cmd"><AnimatedRay angle={240} icon={<FaTerminal />} label="CMD & Befehle testen" show={showButtons} delay={0.4} /></Link>
             <AnimatedRay angle={300} icon={<FaStickyNote />} label="Notizen & Spickzettel" show={showButtons} delay={0.5} />
           </div>
         )}
