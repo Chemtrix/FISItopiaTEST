@@ -82,7 +82,7 @@ function Home() {
             <Link to="/fillin"><CircleButton icon={<FaKeyboard />} label="Lückentext" /></Link>
             <Link to="/vocab"><CircleButton icon={<FaBook />} label="Vokabeln" /></Link>
             <Link to="/dragdrop"><CircleButton icon={<FaPuzzlePiece />} label="Drag & Drop" /></Link>
-            <CircleButton icon={<FaTerminal />} label="CMD" />
+            <Link to="/cmd"><CircleButton icon={<FaTerminal />} label="CMD" /></Link>
             <CircleButton icon={<FaStickyNote />} label="Notizen" />
           </div>
         ) : (
@@ -99,7 +99,9 @@ function Home() {
             <Link to="/dragdrop">
               <AnimatedRay angle={180} icon={<FaPuzzlePiece />} label="Drag & Drop Aufgaben" show={showButtons} delay={0.3} />
             </Link>
-            <AnimatedRay angle={240} icon={<FaTerminal />} label="CMD & Befehle testen" show={showButtons} delay={0.4} />
+            <Link to="/cmd">
+              <AnimatedRay angle={240} icon={<FaTerminal />} label="CMD & Befehle testen" show={showButtons} delay={0.4} />
+            </Link>
             <AnimatedRay angle={300} icon={<FaStickyNote />} label="Notizen & Spickzettel" show={showButtons} delay={0.5} />
           </div>
         )}
